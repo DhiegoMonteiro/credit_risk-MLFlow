@@ -2,10 +2,12 @@ import os
 import pandas as pd
 import joblib
 import numpy as np
+from flask_cors import CORS
 from flask import Flask, request, jsonify
 from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
+CORS(app)
 
 model = None
 scaler = None
