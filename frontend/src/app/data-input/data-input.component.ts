@@ -16,6 +16,10 @@ export class DataInputComponent {
   private http = inject(HttpClient);
   private router = inject(Router);
 
+  goToCsvUpload() {
+    this.router.navigate(['/csv-upload']);
+  }
+  
   homeOwnershipOptions = [
     { value: 0, label: 'Aluguel' },
     { value: 1, label: 'Propria' },

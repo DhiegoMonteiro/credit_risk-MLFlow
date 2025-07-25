@@ -3,7 +3,8 @@ import pandas as pd
 import joblib
 import numpy as np
 from flask_cors import CORS
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
+from io import StringIO, BytesIO
 from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
@@ -11,6 +12,9 @@ CORS(app)
 
 model = None
 scaler = None
+required_columns = ["person_age","person_income","person_home_ownership",
+                    "person_emp_length","loan_intent","loan_grade","loan_amnt",  "loan_int_rate",
+                      "loan_percent_income","cb_person_default_on_file", "cb_person_cred_hist_length"]
 
 def load_model():
     """Carrega o melhor modelo salvo"""
@@ -49,6 +53,7 @@ def home():
     <ul>
         <li><strong>POST /predict</strong> - Fazer predição</li>
         <li><strong>GET /health</strong> - Status da API</li>
+        <li><strong>POST /csv</strong> - Fazer Predições ao importar csv</li>
     </ul>
     <h3>Exemplo de uso:</h3>
     <pre>
@@ -69,6 +74,66 @@ curl -X POST http://localhost:5000/predict \\
   }'
     </pre>
     """
+@app.route('/csv', methods=['POST'])
+def predict_csv():
+    if model is None:
+        return jsonify({'error': 'Modelo não carregado'}), 500
+
+    if 'file' not in request.files:
+        return jsonify({'error': 'Arquivo CSV não fornecido'}), 400
+
+    file = request.files['file']
+
+    try:
+        df = pd.read_csv(file)
+
+        missing_cols = [col for col in required_columns if col not in df.columns]
+        if missing_cols:
+            return jsonify({'error': f'Colunas ausentes no CSV: {missing_cols}'}), 400
+        
+        if df['person_home_ownership'].dtype == object:
+            df['person_home_ownership'] = df['person_home_ownership'].str.upper().map({
+                'RENT': 0, 'OWN': 1, 'MORTGAGE': 2, 'OTHER': 3
+            })
+
+        if df['loan_intent'].dtype == object:
+            df['loan_intent'] = df['loan_intent'].str.upper().map({
+                'PERSONAL': 0, 'EDUCATION': 1, 'MEDICAL': 2,
+                'VENTURE': 3, 'HOMEIMPROVEMENT': 4, 'DEBTCONSOLIDATION': 5
+            })
+
+        if df['loan_grade'].dtype == object:
+            df['loan_grade'] = df['loan_grade'].str.upper().map({
+                'A': 0, 'B': 1, 'C': 2, 'D': 3, 'E': 4, 'F': 5, 'G': 6
+            })
+
+        if df['cb_person_default_on_file'].dtype == object:
+            df['cb_person_default_on_file'] = df['cb_person_default_on_file'].str.upper().map({
+                'N': 0, 'Y': 1
+            })
+
+        X = df[required_columns]
+        if scaler is not None:
+            X = scaler.transform(X)
+        else:
+            X = X.values
+
+        preds = model.predict(X)
+
+        df['loan_status'] = preds
+        df['status'] = df['loan_status'].apply(lambda x: 'Negado (Inadimplente)' if x == 1 else 'Aprovado (Não inadimplente)')
+
+        output = StringIO()
+        df.to_csv(output, index=False)
+        output.seek(0)
+
+        return send_file(BytesIO(output.getvalue().encode()),
+                         mimetype='text/csv',
+                         as_attachment=True,
+                         download_name='credit_risk_predicoes.csv')
+
+    except Exception as e:
+        return jsonify({'error': f'Erro ao processar o arquivo: {str(e)}'}), 500
 
 @app.route('/predict', methods=['POST'])
 def predict():

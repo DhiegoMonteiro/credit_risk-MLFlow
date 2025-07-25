@@ -1,0 +1,25 @@
+<div class="csv-container">
+  <h2>Importar CSV para Predição</h2>
+
+  <ng-container *ngIf="csvData.length === 0">
+    <input type="file" (change)="onFileSelected($event)" accept=".csv" />
+    <button class="submit-button" [disabled]="!selectedFile" (click)="uploadFile()">Enviar</button>
+  </ng-container>
+
+  <div *ngIf="csvData.length > 0" class="scroll-wrapper">
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let col of columns">{{ col }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of csvData">
+            <td *ngFor="let col of columns">{{ row[col] }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
