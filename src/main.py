@@ -6,15 +6,21 @@ import joblib
 import mlflow
 import mlflow.sklearn
 
+import matplotlib
+matplotlib.use('Agg') 
+import matplotlib.pyplot as plt
+import seaborn as sns
+
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, precision_score, f1_score
+from sklearn.metrics import accuracy_score, precision_score, f1_score, confusion_matrix
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(file)))
-SRC_DIR = os.path.dirname(os.path.abspath(file))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE = os.path.join(BASE_DIR, "data", "processed", "credit_risk_balanced_2500.csv")
 CREATE_SAMPLE_SCRIPT = os.path.join(SRC_DIR, "create_balanced_sample.py")
 MODEL_SAVE_PATH = os.path.join(BASE_DIR, "best_models")
+MATRIZ_SAVE_PATH = os.path.join(BASE_DIR, "matrizes")
 MLFLOW_TRACKING_DIR = os.path.join(BASE_DIR, "mlruns")
 
 sys.path.append(SRC_DIR)
@@ -50,7 +56,7 @@ best_score = 0
 best_model = None
 best_model_name = ""
 
-print(f" Treinando {len(MODELS_CONFIG)} modelos...\n")
+print(f"Treinando {len(MODELS_CONFIG)} modelos...\n")
 
 for name, config in MODELS_CONFIG.items():
     print(f"Treinando: {name}")
@@ -61,24 +67,41 @@ for name, config in MODELS_CONFIG.items():
         grid = GridSearchCV(
             estimator=model, param_grid=param_grid,
             cv=TRAINING_CONFIG['cv_folds'], scoring=TRAINING_CONFIG['scoring'],
-            n_jobs=TRAINING_CONFIG['n_jobs'], verbose=0  # Menos verbose
+            n_jobs=TRAINING_CONFIG['n_jobs'], verbose=0
         )
         grid.fit(X_train, y_train)
 
-        final_model = grid.bestestimator
+        final_model = grid.best_estimator_
         preds = final_model.predict(X_test)
 
         accuracy = accuracy_score(y_test, preds)
         precision = precision_score(y_test, preds, average="macro", zero_division=0)
         f1_macro = f1_score(y_test, preds, average="macro")
+        cm = confusion_matrix(y_test, preds)
 
-        print(f"  ✅ Acurácia: {accuracy:.4f}")
+        print(f"Acurácia: {accuracy:.4f}")
+        print(f"Precisão: {precision:.4f}")
+        print(f"F1-Score: {f1_macro:.4f}")
+        print(f"Melhores parâmetros: {grid.best_params_}\n")
 
-        # Log MLFlow
         mlflow.log_param("model", name)
         mlflow.log_metric("accuracy", accuracy)
         mlflow.log_metric("precision_macro", precision)
         mlflow.log_metric("f1_macro", f1_macro)
+
+        fig, ax = plt.subplots(figsize=(6, 5))
+        sns.heatmap(cm, annot=True, fmt='d', cmap="Blues", cbar=False, ax=ax)
+        ax.set_xlabel('Predito')
+        ax.set_ylabel('Real')
+        ax.set_title(f'Matriz de Confusão - {name}')
+        plt.tight_layout()
+
+        os.makedirs(MATRIZ_SAVE_PATH, exist_ok=True)
+        cm_path = os.path.join(MATRIZ_SAVE_PATH, f"cm_{name}.png")
+        plt.savefig(cm_path)
+        plt.close()  
+
+        mlflow.log_artifact(cm_path)
 
         if accuracy > best_score:
             best_score = accuracy
@@ -97,4 +120,4 @@ if best_model:
     with mlflow.start_run(run_name="Best_Model"):
         mlflow.sklearn.log_model(best_model, "best_model")
 
-print("✅ TREINAMENTO CONCLUÍDO!")
+print("TREINAMENTO CONCLUÍDO!")

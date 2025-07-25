@@ -1,8 +1,3 @@
-#!/usr/bin/env python3
-"""
-Script simples para testar a API de Credit Risk ML
-"""
-
 import requests
 import json
 
@@ -15,15 +10,15 @@ def test_health():
         response = requests.get(f"{BASE_URL}/health")
         if response.status_code == 200:
             data = response.json()
-            print(f"✅ API funcionando!")
+            print(f"API funcionando!")
             print(f"   - Modelo: {data.get('model_loaded')}")
             print(f"   - Scaler: {data.get('scaler_ready')}")
             return True
         else:
-            print(f"❌ Erro: {response.status_code}")
+            print(f"Erro: {response.status_code}")
             return False
     except Exception as e:
-        print(f"❌ Erro de conexão: {e}")
+        print(f"Erro de conexão: {e}")
         return False
 
 def test_prediction():
@@ -55,15 +50,15 @@ def test_prediction():
             result = response.json()
             status = result.get('status')
             confidence = result.get('confidence', 0)
-            print(f"✅ Predição: {status}")
+            print(f"Predição: {status}")
             print(f"   - Confiança: {confidence:.2%}")
             return True
         else:
-            print(f"❌ Erro: {response.status_code}")
+            print(f"Erro: {response.status_code}")
             print(f"   - Resposta: {response.text}")
             return False
     except Exception as e:
-        print(f"❌ Erro: {e}")
+        print(f"Erro: {e}")
         return False
 
 def main():
@@ -71,11 +66,9 @@ def main():
     print("Testando Credit Risk ML API")
     print("=" * 40)
     
-    # Responsável por executar testes
     health_ok = test_health()
     prediction_ok = test_prediction() if health_ok else False
     
-    # Resultado
     print("\n" + "=" * 40)
     if health_ok and prediction_ok:
         print("Todos os testes passaram!!!!!")

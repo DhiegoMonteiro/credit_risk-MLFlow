@@ -7,7 +7,6 @@ from sklearn.preprocessing import StandardScaler
 
 app = Flask(__name__)
 
-# Variáveis globais
 model = None
 scaler = None
 
@@ -19,21 +18,19 @@ def load_model():
     MODEL_PATH = os.path.join(BASE_DIR, "best_models", "melhor_modelo.pkl")
     DATA_PATH = os.path.join(BASE_DIR, "data", "processed", "credit_risk_balanced_2500.csv")
     
-    # Carregar modelo
     if os.path.exists(MODEL_PATH):
         model = joblib.load(MODEL_PATH)
-        print("✅ Modelo carregado com sucesso!")
+        print("Modelo carregado com sucesso!")
     else:
-        print("❌ Modelo não encontrado! Execute main.py primeiro.")
+        print("Modelo não encontrado! Execute main.py primeiro.")
         return False
     
-    # Preparar scaler com dados de treino
     if os.path.exists(DATA_PATH):
         df = pd.read_csv(DATA_PATH)
         X = df.drop("loan_status", axis=1)
         scaler = StandardScaler()
         scaler.fit(X)
-        print("✅ Scaler preparado!")
+        print("Scaler preparado!")
     else:
         print(" Dados não encontrados, sem scaling")
         scaler = None
@@ -78,24 +75,19 @@ def predict():
         if model is None:
             return jsonify({'error': 'Modelo não carregado'}), 500
         
-        # Receber dados
         data = request.json
         if not data:
             return jsonify({'error': 'Dados não fornecidos'}), 400
         
-        # Converter para DataFrame
         df = pd.DataFrame([data])
         
-        # Aplicar scaling se disponível
         if scaler is not None:
             X = scaler.transform(df)
         else:
             X = df.values
         
-        # Fazer predição
         prediction = model.predict(X)[0]
         
-        # Tentar obter probabilidade
         try:
             proba = model.predict_proba(X)[0]
             confidence = max(proba)
@@ -125,5 +117,5 @@ if __name__ == '__main__':
         print("Iniciando servidor Flask...")
         app.run(host='0.0.0.0', port=5000, debug=True)
     else:
-        print("❌ Falha ao carregar modelo. Execute 'python src/main.py' primeiro.")
+        print("Falha ao carregar modelo. Execute 'python src/main.py' primeiro.")
         exit(1)
