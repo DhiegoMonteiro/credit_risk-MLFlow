@@ -1,0 +1,179 @@
+<div class="container">
+  <h2>Analise de Risco de Crédito</h2>
+  <p class="description">
+    Insira as informações necessárias abaixo para analisar o risco de crédito.
+  </p>
+
+  <form [formGroup]="creditForm" (ngSubmit)="onSubmit()" class="credit-form">
+    <div class="form-section">
+      <h3>Informação Pessoal</h3>
+      
+      <div class="form-group">
+        <label for="person_age">Idade</label>
+        <input 
+          id="person_age" 
+          type="number" 
+          formControlName="person_age"
+          [class.invalid]="creditForm.get('person_age')?.invalid && creditForm.get('person_age')?.touched"
+        >
+        @if (creditForm.get('person_age')?.invalid && creditForm.get('person_age')?.touched) {
+          <div class="error-message">Idade deve ser entre 18 e 100 anos.</div>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="person_income">Renda Anual ($)</label>
+        <input 
+          id="person_income" 
+          type="number" 
+          formControlName="person_income"
+          [class.invalid]="creditForm.get('person_income')?.invalid && creditForm.get('person_income')?.touched"
+        >
+        @if (creditForm.get('person_income')?.invalid && creditForm.get('person_income')?.touched) {
+          <div class="error-message">Por favor, insira um valor de renda válido.</div>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="person_home_ownership">Propriedade da Casa</label>
+        <select 
+          id="person_home_ownership" 
+          formControlName="person_home_ownership"
+          [class.invalid]="creditForm.get('person_home_ownership')?.invalid && creditForm.get('person_home_ownership')?.touched"
+        >
+          @for (option of homeOwnershipOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="person_emp_length">Tempo de Emprego (anos)</label>
+        <input 
+          id="person_emp_length" 
+          type="number" 
+          formControlName="person_emp_length"
+          [class.invalid]="creditForm.get('person_emp_length')?.invalid && creditForm.get('person_emp_length')?.touched"
+        >
+        @if (creditForm.get('person_emp_length')?.invalid && creditForm.get('person_emp_length')?.touched) {
+          <div class="error-message">Por favor, insira um tempo de emprego válido.</div>
+        }
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h3>Informação de Empréstimo</h3>
+
+      <div class="form-group">
+        <label for="loan_intent">Intenção do Empréstimo</label>
+        <select
+          id="loan_intent"
+          formControlName="loan_intent"
+          [class.invalid]="creditForm.get('loan_intent')?.invalid && creditForm.get('loan_intent')?.touched"
+        >
+          @for (option of loanIntentOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="loan_grade">Classificação do Empréstimo</label>
+        <select
+          id="loan_grade"
+          formControlName="loan_grade"
+          [class.invalid]="creditForm.get('loan_grade')?.invalid && creditForm.get('loan_grade')?.touched"
+        >
+          @for (option of loanGradeOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="loan_amnt">Valor do Empréstimo ($)</label>
+        <input 
+          id="loan_amnt" 
+          type="number" 
+          formControlName="loan_amnt"
+          [class.invalid]="creditForm.get('loan_amnt')?.invalid && creditForm.get('loan_amnt')?.touched"
+        >
+        @if (creditForm.get('loan_amnt')?.invalid && creditForm.get('loan_amnt')?.touched) {
+          <div class="error-message">Por favor, insira um valor de empréstimo válido.</div>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="loan_int_rate">Taxa de Juros (%)</label>
+        <input 
+          id="loan_int_rate" 
+          type="number" 
+          step="0.1" 
+          formControlName="loan_int_rate"
+          [class.invalid]="creditForm.get('loan_int_rate')?.invalid && creditForm.get('loan_int_rate')?.touched"
+        >
+        @if (creditForm.get('loan_int_rate')?.invalid && creditForm.get('loan_int_rate')?.touched) {
+          <div class="error-message">A taxa de juros deve estar entre 0 e 30%.</div>
+        }
+      </div>
+      
+      <div class="form-group">
+        <label for="loan_percent_income">Percentual do Empréstimo na Renda (decimal, ex: 0.2 para 20%)</label>
+        <input 
+          id="loan_percent_income" 
+          type="number" 
+          step="0.01" 
+          formControlName="loan_percent_income"
+          [class.invalid]="creditForm.get('loan_percent_income')?.invalid && creditForm.get('loan_percent_income')?.touched"
+        >
+        @if (creditForm.get('loan_percent_income')?.invalid && creditForm.get('loan_percent_income')?.touched) {
+          <div class="error-message">O valor deve estar entre 0 e 1.</div>
+        }
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h3>Histórico de Crédito</h3>
+
+      <div class="form-group">
+        <label for="cb_person_default_on_file">Padrão no Arquivo</label>
+        <select 
+          id="cb_person_default_on_file" 
+          formControlName="cb_person_default_on_file"
+          [class.invalid]="creditForm.get('cb_person_default_on_file')?.invalid && creditForm.get('cb_person_default_on_file')?.touched"
+        >
+          @for (option of defaultOnFileOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+      
+      <div class="form-group">
+        <label for="cb_person_cred_hist_length">Tempo do Histórico de Crédito (anos)</label>
+        <input 
+          id="cb_person_cred_hist_length" 
+          type="number" 
+          formControlName="cb_person_cred_hist_length"
+          [class.invalid]="creditForm.get('cb_person_cred_hist_length')?.invalid && creditForm.get('cb_person_cred_hist_length')?.touched"
+        >
+        @if (creditForm.get('cb_person_cred_hist_length')?.invalid && creditForm.get('cb_person_cred_hist_length')?.touched) {
+          <div class="error-message">Por favor, insira um comprimento de histórico de crédito válido.</div>
+        }
+      </div>
+    </div>
+    
+    @if (errorMessage) {
+      <div class="error-alert">{{ errorMessage }}</div>
+    }
+    
+    <div class="form-actions">
+      <button type="submit" [disabled]="loading || creditForm.invalid" class="submit-button">
+        @if (loading) {
+          Processando...
+        } @else {
+          Analisar Risco de Crédito
+        }
+      </button>
+    </div>
+  </form>
+</div>
