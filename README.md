@@ -16,40 +16,52 @@ Desenvolvido por: **André Luiz**, **Dhiego Fernando**, **Luiz Henrique** e **Ma
 ```
 git clone https://github.com/DhiegoMonteiro/credit_risk-MLFlow.git
 ```
-## 2. Com o projeto clonado navegue ate a pasta src 
+
+## 2. Com o projeto clonado, navegue até o diretório principal:
+
+```
+cd credit_risk-MLFlow
+```
+### 2.1 Baixe as dependências com o seguinte comando:
+```
+pip install -r requirements.txt
+```
+
+
+## 3. Após isso navegue ate a pasta src 
 
 ```
 cd credit_risk-MLFlow/src/
 ```
 
-## 3. Utilize o seguinte comando para executar a main.py
+## 4. Utilize o seguinte comando para executar a main.py
 
 ```
 py main.py
 ```
 *  **Este comando é de extrema importância, ele irá fazer o treinamento dos modelos e exportação do melhor modelo a ser utilizado dentre os 6 escolhidos, o treinamento e exportação deverá levar cerca de 10-20min até sua conclusão.**
 
-## 4. Após gerar o modelo correto navegue até o diretório do projeto novamente
+## 5. Após gerar o modelo correto navegue até o diretório do projeto novamente
 
 ```
 cd ..
 ```
 
-## 5. Verifique a existência do diretório best_models onde encontrará o melhor modelo gerado
+## 6. Verifique a existência do diretório best_models onde encontrará o melhor modelo gerado
 
-## 6. Abra o Docker Desktop e no diretório principal do projeto rode o comando a seguir
+## 7. Abra o Docker Desktop e no diretório principal do projeto rode o comando a seguir
 
 ```
 docker compose up --build -d
 ```
 
-## 7. Após isso, acesse no navegador
+## 8. Após isso, acesse no navegador
 
 ```
 http://localhost:4200/
 ```
 
-## 8. Caso queira fazer um teste para verificar se a aplicação esta funcionando vá no diretório principal do projeto e execute:
+## 9. Caso queira fazer um teste para verificar se a aplicação esta funcionando vá no diretório principal do projeto e execute:
 
 ```
 py test_app.py
@@ -84,6 +96,12 @@ http://localhost:5000/health
   "scaler_ready": true,
   "status": "healthy"
 }
+```
+
+## 10. Você poderá visualizar os experimentos através do MLFlow UI através do link a seguir:
+
+```
+http://localhost:5001/
 ```
 
 
