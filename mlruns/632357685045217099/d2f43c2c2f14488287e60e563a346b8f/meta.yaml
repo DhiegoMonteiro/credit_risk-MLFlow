@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/632357685045217099/d2f43c2c2f14488287e60e563a346b8f/artifacts
+end_time: 1753298178774
+entry_point_name: ''
+experiment_id: '632357685045217099'
+lifecycle_stage: active
+run_id: d2f43c2c2f14488287e60e563a346b8f
+run_name: Best_Model
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753298169476
+status: 3
+tags: []
+user_id: dfmdh

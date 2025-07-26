@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/models/m-ce90396d5c38480795875b586f895002/artifacts
+creation_timestamp: 1753294664338
+experiment_id: '867384222829557386'
+last_updated_timestamp: 1753294668539
+model_id: m-ce90396d5c38480795875b586f895002
+model_type: null
+name: credit_risk_knn_model
+source_run_id: e82827ed43924061af0ecf765a282caf
+status: 2
+status_message: null

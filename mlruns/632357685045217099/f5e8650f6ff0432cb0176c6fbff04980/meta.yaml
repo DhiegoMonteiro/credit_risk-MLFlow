@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/632357685045217099/f5e8650f6ff0432cb0176c6fbff04980/artifacts
+end_time: 1753300752185
+entry_point_name: ''
+experiment_id: '632357685045217099'
+lifecycle_stage: active
+run_id: f5e8650f6ff0432cb0176c6fbff04980
+run_name: RandomForest
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753300556674
+status: 3
+tags: []
+user_id: dfmdh

@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/models/m-6ebfce81b7a24dfea24cac8b3f2ebf46/artifacts
+creation_timestamp: 1753294763835
+experiment_id: '867384222829557386'
+last_updated_timestamp: 1753294769502
+model_id: m-6ebfce81b7a24dfea24cac8b3f2ebf46
+model_type: null
+name: credit_risk_xgboost_model
+source_run_id: efa14bf0d1db4ded9524e4f2d6ef39ea
+status: 2
+status_message: null

@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/models/m-bc56f9a744dc4f4895f361936ba80846/artifacts
+creation_timestamp: 1753294020671
+experiment_id: '867384222829557386'
+last_updated_timestamp: 1753294024456
+model_id: m-bc56f9a744dc4f4895f361936ba80846
+model_type: null
+name: credit_risk_ridgeclassifier_model
+source_run_id: 22fe5a27dab241128fae6ff75399f563
+status: 2
+status_message: null

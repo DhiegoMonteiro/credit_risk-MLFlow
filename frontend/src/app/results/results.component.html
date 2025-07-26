@@ -1,12 +1,15 @@
 <div class="container">
-  <h2>Analise de Risco de Crédito Resultado</h2>
+  <h2>Análise de Risco de Crédito Resultado</h2>
 
-  @if (result && formData) {
+  <ng-container *ngIf="result && formData; else loadingTpl">
     <div class="results-panel">
-      <div class="result-header" [ngClass]="{
-        'approved': result.status === 'Aprovado',
-        'denied': result.status === 'Negado'
-      }">
+      <div
+        class="result-header"
+        [ngClass]="{
+          'approved': result.status === 'Aprovado',
+          'denied': result.status === 'Negado'
+        }"
+      >
         <h3>{{ result.status }}</h3>
         <div class="confidence">
           Confiança: {{ getConfidencePercent() }}
@@ -22,15 +25,21 @@
           </div>
           <div class="detail-row">
             <div class="detail-label">Renda Anual:</div>
-            <div class="detail-value">${{ formData.person_income.toLocaleString() }}</div>
+            <div class="detail-value">
+              ${{ formData.person_income.toLocaleString() }}
+            </div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Propriedade da Casa:</div>
-            <div class="detail-value">{{ getLabelForHomeOwnership(formData.person_home_ownership) }}</div>
+            <div class="detail-value">
+              {{ getLabelForHomeOwnership(formData.person_home_ownership) }}
+            </div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Tempo de Emprego:</div>
-            <div class="detail-value">{{ formData.person_emp_length }} anos</div>
+            <div class="detail-value">
+              {{ formData.person_emp_length }} anos
+            </div>
           </div>
         </div>
 
@@ -38,23 +47,31 @@
           <h4>Informações do Empréstimo</h4>
           <div class="detail-row">
             <div class="detail-label">Intenção do Empréstimo:</div>
-            <div class="detail-value">{{ getLabelForLoanIntent(formData.loan_intent) }}</div>
+            <div class="detail-value">
+              {{ getLabelForLoanIntent(formData.loan_intent) }}
+            </div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Classificação do Empréstimo:</div>
-            <div class="detail-value">{{ getLabelForLoanGrade(formData.loan_grade) }}</div>
+            <div class="detail-value">
+              {{ getLabelForLoanGrade(formData.loan_grade) }}
+            </div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Valor do Empréstimo:</div>
-            <div class="detail-value">${{ formData.loan_amnt.toLocaleString() }}</div>
+            <div class="detail-value">
+              ${{ formData.loan_amnt.toLocaleString() }}
+            </div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Taxa de Juros:</div>
             <div class="detail-value">{{ formData.loan_int_rate }}%</div>
           </div>
           <div class="detail-row">
-            <div class="detail-label">Relação Empréstimo-Renda:</div>
-            <div class="detail-value">{{ (formData.loan_percent_income * 100).toFixed(1) }}%</div>
+            <div class="detail-label">Relação Empréstimo–Renda:</div>
+            <div class="detail-value">
+              {{ (formData.loan_percent_income * 100).toFixed(1) }}%
+            </div>
           </div>
         </div>
 
@@ -62,43 +79,62 @@
           <h4>Histórico de Crédito</h4>
           <div class="detail-row">
             <div class="detail-label">Padrão de Arquivo:</div>
-            <div class="detail-value">{{ getLabelForDefaultOnFile(formData.cb_person_default_on_file) }}</div>
+            <div class="detail-value">
+              {{ getLabelForDefaultOnFile(formData.cb_person_default_on_file) }}
+            </div>
           </div>
           <div class="detail-row">
             <div class="detail-label">Tempo de Histórico de Crédito:</div>
-            <div class="detail-value">{{ formData.cb_person_cred_hist_length }} anos</div>
+            <div class="detail-value">
+              {{ formData.cb_person_cred_hist_length }} anos
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="risk-factors" [ngClass]="{
-        'risk-factors-approved': result.status === 'Aprovado',
-        'risk-factors-denied': result.status === 'Negado'
-      }">
+      <div
+        class="risk-factors"
+        [ngClass]="{
+          'risk-factors-approved': result.status === 'Aprovado',
+          'risk-factors-denied': result.status === 'Negado'
+        }"
+      >
         <h4>Key Factors Affecting Decision</h4>
-        @if (result.status === 'Aprovado') {
+
+        <ng-container *ngIf="result.status === 'Aprovado'; else deniedFactors">
           <ul>
             <li>Histórico de crédito forte</li>
             <li>Razão de empréstimo para renda apropriada</li>
             <li>Histórico de emprego estável</li>
           </ul>
-        } @else {
+        </ng-container>
+        <ng-template #deniedFactors>
           <ul>
             <li>Alta quantidade de empréstimo em relação à renda</li>
             <li>Preocupações com o histórico de crédito</li>
             <li>Avaliação da classificação do empréstimo</li>
           </ul>
-        }
+        </ng-template>
       </div>
     </div>
 
+
     <div class="actions">
-      <button class="new-assessment-button" (click)="startNewAssessment()">Iniciar outra Análise</button>
+      <button
+        class="new-assessment-button"
+        (click)="startNewAssessment()"
+      >
+        Iniciar outra Análise
+      </button>
     </div>
-  } @else {
+  </ng-container>
+
+  <ng-template #loadingTpl>
     <div class="loading">
       <p>Carregando resultados ou sem dados disponíveis...</p>
-      <button (click)="startNewAssessment()">Retornar ao Formulário de Entrada</button>
+      <button (click)="startNewAssessment()">
+        Retornar ao Formulário de Entrada
+      </button>
     </div>
-  }
+  </ng-template>
 </div>

@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/632357685045217099/5648567b3099452b91b5d0fd0435bdca/artifacts
+end_time: 1753300236809
+entry_point_name: ''
+experiment_id: '632357685045217099'
+lifecycle_stage: active
+run_id: 5648567b3099452b91b5d0fd0435bdca
+run_name: KNN
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753300188777
+status: 3
+tags: []
+user_id: dfmdh

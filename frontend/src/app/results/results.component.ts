@@ -29,29 +29,28 @@ interface PredictionResult {
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.css']
 })
+
 export class ResultsComponent implements OnInit {
   private router = inject(Router);
-  
+
   formData: FormData | null = null;
   result: PredictionResult | null = null;
-  
-  homeOwnershipLabels = ['Aluguel', 'Propria', 'Hipoteca', 'Outro'];
+
+  homeOwnershipLabels = ['Aluguel', 'Própria', 'Hipoteca', 'Outro'];
   loanIntentLabels = ['Pessoal', 'Educação', 'Médico', 'Empreendimento', 'Melhoria da Casa', 'Consolidação de Dívidas'];
   loanGradeLabels = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   defaultOnFileLabels = ['Não', 'Sim'];
 
   ngOnInit(): void {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as { 
-      formData: FormData, 
-      result: PredictionResult 
+    const { formData, result } = history.state as {
+      formData?: FormData;
+      result?: PredictionResult;
     };
-    
-    if (state) {
-      this.formData = state.formData;
-      this.result = state.result;
+
+    if (formData && result) {
+      this.formData = formData;
+      this.result = result;
     } else {
-      // Redirect back to input form if there's no data
       this.router.navigate(['/input']);
     }
   }
@@ -73,7 +72,7 @@ export class ResultsComponent implements OnInit {
   }
 
   getConfidencePercent(): string {
-    return this.result ? `${(this.result.confidence * 100).toFixed(2)}%` : '0%';
+    return this.result ? (this.result.confidence * 100).toFixed(2) : '0%';
   }
 
   startNewAssessment(): void {

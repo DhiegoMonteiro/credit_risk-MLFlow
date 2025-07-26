@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/models/m-308cd4ce501f49548775e72e3e6b7492/artifacts
+creation_timestamp: 1753294177261
+experiment_id: '867384222829557386'
+last_updated_timestamp: 1753294181696
+model_id: m-308cd4ce501f49548775e72e3e6b7492
+model_type: null
+name: credit_risk_randomforest_model
+source_run_id: fea2fb15f5dd45b2a242d1c07856b382
+status: 2
+status_message: null

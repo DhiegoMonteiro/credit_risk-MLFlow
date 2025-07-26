@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/models/m-ed24ab2756d641b2be02ce559b013dc4/artifacts
+creation_timestamp: 1753294012502
+experiment_id: '867384222829557386'
+last_updated_timestamp: 1753294017448
+model_id: m-ed24ab2756d641b2be02ce559b013dc4
+model_type: null
+name: credit_risk_qda_model
+source_run_id: 11c40debce024293bc4fc364052e908c
+status: 2
+status_message: null

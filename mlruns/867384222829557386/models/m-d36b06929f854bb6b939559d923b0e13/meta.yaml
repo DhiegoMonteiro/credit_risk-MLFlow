@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/models/m-d36b06929f854bb6b939559d923b0e13/artifacts
+creation_timestamp: 1753294656376
+experiment_id: '867384222829557386'
+last_updated_timestamp: 1753294660677
+model_id: m-d36b06929f854bb6b939559d923b0e13
+model_type: null
+name: credit_risk_gradientboosting_model
+source_run_id: bac3a4d3dc754e4985b81890f5f458be
+status: 2
+status_message: null

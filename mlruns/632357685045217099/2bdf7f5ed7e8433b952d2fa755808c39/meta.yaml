@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/632357685045217099/2bdf7f5ed7e8433b952d2fa755808c39/artifacts
+end_time: 1753298072297
+entry_point_name: ''
+experiment_id: '632357685045217099'
+lifecycle_stage: active
+run_id: 2bdf7f5ed7e8433b952d2fa755808c39
+run_name: GradientBoosting
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753297485361
+status: 3
+tags: []
+user_id: dfmdh

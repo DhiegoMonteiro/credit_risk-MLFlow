@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/632357685045217099/7c8734fc73614590abf2593d3fefd815/artifacts
+end_time: 1753455327805
+entry_point_name: ''
+experiment_id: '632357685045217099'
+lifecycle_stage: active
+run_id: 7c8734fc73614590abf2593d3fefd815
+run_name: XGBoost
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753455225668
+status: 3
+tags: []
+user_id: dfmdh

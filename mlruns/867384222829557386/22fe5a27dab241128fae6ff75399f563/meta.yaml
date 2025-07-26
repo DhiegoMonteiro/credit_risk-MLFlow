@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/22fe5a27dab241128fae6ff75399f563/artifacts
+end_time: 1753294024589
+entry_point_name: ''
+experiment_id: '867384222829557386'
+lifecycle_stage: active
+run_id: 22fe5a27dab241128fae6ff75399f563
+run_name: CreditRisk_RidgeClassifier
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753294017624
+status: 3
+tags: []
+user_id: dfmdh

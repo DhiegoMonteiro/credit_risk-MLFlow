@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/867384222829557386/11c40debce024293bc4fc364052e908c/artifacts
+end_time: 1753294017619
+entry_point_name: ''
+experiment_id: '867384222829557386'
+lifecycle_stage: active
+run_id: 11c40debce024293bc4fc364052e908c
+run_name: CreditRisk_QDA
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1753294001046
+status: 3
+tags: []
+user_id: dfmdh

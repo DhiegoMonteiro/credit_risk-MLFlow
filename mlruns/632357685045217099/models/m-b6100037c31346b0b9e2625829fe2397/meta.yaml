@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/dfmdh/Documents/GitHub/credit_risk-MLFlow/mlruns/632357685045217099/models/m-b6100037c31346b0b9e2625829fe2397/artifacts
+creation_timestamp: 1753298169587
+experiment_id: '632357685045217099'
+last_updated_timestamp: 1753298178753
+model_id: m-b6100037c31346b0b9e2625829fe2397
+model_type: null
+name: best_model
+source_run_id: d2f43c2c2f14488287e60e563a346b8f
+status: 2
+status_message: null
